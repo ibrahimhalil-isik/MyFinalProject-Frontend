@@ -1,17 +1,31 @@
-<button  *ngIf="dataLoaded==false" class="btn btn-primary" type="button" disabled>
-    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-    Loading..
-  </button>
-  <table *ngIf="dataLoaded==true"class="table">
-    <thead>  
-      <tr>
-        <th>Id</th>
-        <th>Kategori Adı</th>  
-      </tr>
-    </thead>
-    <tr *ngFor="let category of categories">
-      <td>{{ category.categoryId }}</td>
-      <td>{{ category.categoryName }}</td>
+<button
+  *ngIf="dataLoaded == false"
+  class="btn btn-primary"
+  type="button"
+  disabled
+>
+  <span
+    class="spinner-border spinner-border-sm"
+    role="status"
+    aria-hidden="true"
+  ></span>
+  Loading..
+</button>
+<ul class="list-group">  
+  <li
+  [class]="getAllCategoryClass()"
+  routerLink="/products">
+    Tüm Ürünler
+  </li>
+  <li
+  (click)="setCurrentCategory(category)"
+    routerLink="/products/category/{{ category.categoryId }}"
+    *ngFor="let category of categories"
+    [class]="getCurrentCategoryClass(category)"
+  >
+    {{ category.categoryName }}
+  </li>
 
-    </tr>
-  </table>
+</ul>
+
+<h5 *ngIf="currentCategory">{{ currentCategory.categoryName }} seçtiniz</h5>

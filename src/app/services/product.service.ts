@@ -8,14 +8,21 @@ import { ListResponseModel } from '../models/listResponseModel';
   providedIn: 'root'
 })
 export class ProductService {
-  apiUrl = 'https://localhost:44369/api/products/getall';
+  apiUrl = 'https://localhost:44369/api/';
 
   constructor(private httpClient: HttpClient) { }
 
   ngOnInit():void{
     this.getProducts();
   }
+
   getProducts():Observable<ListResponseModel<Product>> {
-    return this.httpClient.get<ListResponseModel<Product>>(this.apiUrl)     
+    let newPath = this.apiUrl + "products/getall"
+    return this.httpClient.get<ListResponseModel<Product>>(newPath)     
+  }
+
+  getProductsByCategory(categoryId:number):Observable<ListResponseModel<Product>> {
+    let newPath = this.apiUrl + "products/getbycategoryid?categoryId="+categoryId
+    return this.httpClient.get<ListResponseModel<Product>>(newPath)     
   }
 }
